@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>User Dashboard</h1>
+
+<button onclick="logout()">Logout</button>
+
+<h2>Create Booking</h2>
+
+<input id="date" type="date"><br>
+<input id="location" placeholder="Pickup location"><br>
+<input id="passengers" placeholder="Passengers"><br>
+
+<select id="vehicle">
+<option>Car</option>
+<option>Bus</option>
+<option>Tempo Traveller</option>
+<option>Mini Bus</option>
+</select>
+
+<textarea id="message" placeholder="Travel details"></textarea><br>
+
+<button onclick="book()">Submit Booking</button>
+
+<h2>Your Bookings</h2>
+<ul id="list"></ul>
+
+<script type="module">
+
+import {auth,signOut,onAuthStateChanged} from "./js/firebase.js";
+
+let bookings=[];
+
+window.book=function(){
+
+const data={
+date:document.getElementById("date").value,
+location:document.getElementById("location").value,
+vehicle:document.getElementById("vehicle").value
+};
+
+bookings.push(data);
+
+render();
+
+}
+
+function render(){
+
+const list=document.getElementById("list");
+list.innerHTML="";
+
+bookings.forEach(b=>{
+
+const li=document.createElement("li");
+li.innerText=b.date+" | "+b.vehicle+" | "+b.location;
+list.appendChild(li);
+
+});
+
+}
+
+onAuthStateChanged(auth,user=>{
+
+if(!user){
+location="login.html";
+}
+
+});
+
+window.logout=function(){
+
+signOut(auth);
+location="login.html";
+
+}
+
+</script>
+
+</body>
+</html>

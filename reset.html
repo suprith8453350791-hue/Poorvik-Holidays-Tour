@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Password Reset</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="box">
+
+<h2>Reset Password</h2>
+
+<input id="email" placeholder="Enter your email"><br>
+
+<button onclick="reset()">Send Reset Link</button>
+
+</div>
+
+<script type="module">
+
+import {auth,sendPasswordResetEmail} from "./js/firebase.js";
+
+window.reset=function(){
+
+const email=document.getElementById("email").value;
+
+sendPasswordResetEmail(auth,email)
+.then(()=>alert("Password reset email sent"))
+.catch(e=>alert(e.message));
+
+}
+
+</script>
+
+</body>
+</html>

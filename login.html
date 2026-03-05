@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Login</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="box">
+<h2>Login</h2>
+
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+
+<button onclick="login()">Login</button>
+
+<p><a href="reset.html">Forgot password?</a></p>
+
+</div>
+
+<script type="module">
+
+import {auth,signInWithEmailAndPassword} from "./js/firebase.js";
+
+window.login=function(){
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+signInWithEmailAndPassword(auth,email,password)
+.then(()=>{
+location="dashboard.html";
+})
+.catch(e=>alert(e.message));
+
+}
+
+</script>
+
+</body>
+</html>

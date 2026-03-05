@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Register</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="box">
+
+<h2>Create Account</h2>
+
+<input id="email" placeholder="Email"><br>
+<input id="password" type="password" placeholder="Password"><br>
+
+<button onclick="register()">Register</button>
+
+<p><a href="login.html">Already have account?</a></p>
+
+</div>
+
+<script type="module">
+
+import {auth,createUserWithEmailAndPassword} from "./js/firebase.js";
+
+window.register=function(){
+
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+createUserWithEmailAndPassword(auth,email,password)
+.then(()=>{
+
+alert("Account created successfully");
+location="login.html";
+
+})
+.catch(e=>alert(e.message));
+
+}
+
+</script>
+
+</body>
+</html>
